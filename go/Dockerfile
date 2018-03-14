@@ -12,3 +12,7 @@ RUN go get -u github.com/golang/dep/cmd/dep
 RUN go get -u github.com/axw/gocov/gocov
 RUN go get -u github.com/alecthomas/gometalinter
 RUN gometalinter --install
+
+COPY mkmf /usr/local/bin/
+COPY halp /usr/local/bin/
+COPY DefaultMakefile /etc/
