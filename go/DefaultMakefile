@@ -3,15 +3,20 @@ bin = $(shell basename $(shell pwd))
 oss = linux darwin windows
 pkg = $(foreach os,$(oss),$(bin)-$(os).zip)
 
-.PHONY: all clean dep lint test cov $(oss) $(bin) install
+.PHONY: all dist clean dep lint test cov $(oss) $(bin) install
 
-all: lint test cov $(oss)
+$(bin): dep $(sauce)
+	go build -o $(bin) .
+
+install: dep $(sauce)
+	go install .
+
+dist: $(oss)
+	
+all: lint test cov dist
 
 clean:
 	rm -rf $(bin) $(pkg)
-
-dep:
-	dep ensure
 
 lint: dep
 	$(GOPATH)/bin/gometalinter --vendor --vendored-linters ./...
@@ -22,12 +27,12 @@ test: dep
 cov: dep
 	gocov test -tags pretty ./... 2>/dev/null | gocov report
 
-$(bin): dep $(sauce)
-	go build -o $(bin) .
-
-install: dep $(sauce)
-	go install .
-
 $(oss): dep $(sauce)
 	CGO_ENABLED=0 GOOS=$@ GOARCH=amd64 go build -o $(bin) .
 	zip $(bin)-$@.zip $(bin)
+
+dep: Gopkg.toml
+	dep ensure
+
+Gopkg.toml:
+	dep init
