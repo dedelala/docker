@@ -1,18 +1,4 @@
-FROM voidlinux/voidlinux:latest
+from voidlinux/voidlinux:latest
 
-RUN xbps-install -Syy git make
-RUN xbps-install -Syy gcc
-RUN xbps-install -Syy go
+run xbps-install -Syy bash git go zip
 
-ENV PATH="/go/bin:${PATH}"
-ENV GOPATH="/go"
-WORKDIR /go
-
-RUN go get -u github.com/golang/dep/cmd/dep
-RUN go get -u github.com/axw/gocov/gocov
-RUN go get -u github.com/alecthomas/gometalinter
-RUN gometalinter --install
-
-COPY mkmf /usr/local/bin/
-COPY halp /usr/local/bin/
-COPY DefaultMakefile /etc/

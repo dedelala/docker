@@ -1,9 +1,0 @@
-#!/bin/bash
-
-if [[ -e Makefile ]]; then
-    echo "found existing Makefile"
-    exit 1
-fi
-
-cp /etc/DefaultMakefile Makefile
-
