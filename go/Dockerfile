@@ -27,7 +27,7 @@ copy --from=bootstrap /go /opt/go
 env GOROOT=/opt/go GOPATH=/go CGO_ENABLED=0
 env PATH=/go/bin:/opt/go/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 
-run apk --no-cache add git
+run apk --no-cache add git zip
 
 
 from go as tools
