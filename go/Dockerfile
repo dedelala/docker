@@ -33,6 +33,7 @@ run apk --no-cache add git zip
 from go as tools
 
 run go get github.com/MYOB-Technology/hubr
+run go get github.com/mattn/goveralls
 
 
 from go
