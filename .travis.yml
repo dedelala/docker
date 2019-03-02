@@ -1,0 +1,12 @@
+language: generic
+services: [docker]
+
+script:
+  - docker build -t dedelala/go:latest go/.
+  - docker run --rm dedelala/go:latest hello.sh
+
+deploy:
+  provider: script
+  script: bash bin/deploy.sh dedelala/go:latest
+  on:
+    branch: master

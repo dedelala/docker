@@ -38,4 +38,4 @@ run go get github.com/MYOB-Technology/hubr
 from go
 
 copy --from=tools /go/bin /go/bin
-
+copy hello.sh /usr/local/bin/
